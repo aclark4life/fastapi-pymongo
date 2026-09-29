@@ -9,10 +9,15 @@ minimum glue to use MongoDB from FastAPI comfortably.
    :caption: Contents
 
    installation
-   quickstart
    objectid
    settings
    lifespan
-   celery
    api
    background
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Examples
+
+   quickstart
+   celery
