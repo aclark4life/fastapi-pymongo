@@ -13,7 +13,7 @@ minimum glue to use MongoDB from FastAPI comfortably.
    settings
    lifespan
    api
-   background
+   reference
 
 .. toctree::
    :maxdepth: 2

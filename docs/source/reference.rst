@@ -1,5 +1,5 @@
-Background
-==========
+Reference
+=========
 
 Why a thin wrapper, not an ODM
 --------------------------------
@@ -33,8 +33,62 @@ and unowned.
 This package takes a different, dependency-free path to the same
 day-to-day ergonomics: :class:`~fastapi_pymongo.PyObjectId` wraps
 ``bson.ObjectId`` at the Pydantic layer, on top of stock PyMongo, rather
-than patching the driver's decode path. If PYTHON-4192 ships, this
-package's types module can shrink or defer to it.
+than patching the driver's decode path.
+
+Two different boundaries
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It's tempting to read PYTHON-4192 and ``PyObjectId`` as two competing
+solutions to the same problem. They aren't — they operate at two
+different boundaries, and (assuming PYTHON-4192 has no blockers to
+merging) each has advantages the other doesn't cover:
+
+1. **BSON ↔ Python object** — the driver boundary, inside
+   ``insert_one``/``find_one``, where PyMongo talks to the wire protocol.
+   This is what PYTHON-4192 changes.
+2. **Python object ↔ JSON** — the API boundary, where FastAPI turns a
+   Pydantic model into an HTTP response body and an OpenAPI schema. This
+   is what ``PyObjectId`` covers.
+
+**What native** ``document_class`` **support would add:**
+
+- Eliminates per-route conversion boilerplate. Today, every route
+  manually does ``item.model_dump(by_alias=True)`` before
+  ``insert_one``, and reconstructs a model from the raw dict
+  ``find_one`` returns. With native support, real Pydantic instances
+  flow in and out directly: ``coll.insert_one(item)``,
+  ``item = coll.find_one(...)``.
+- Uniform coverage across the entire driver surface —
+  ``bulk_write``, ``find``, ``aggregate``, change streams, GridFS,
+  ``client_bulk_write`` — not just the call sites application code
+  happens to touch.
+- Benefits every PyMongo consumer, not just FastAPI apps: scripts, other
+  frameworks, and ODMs built on top (Beanie included) get it for free,
+  in one place.
+- Type-checked at the call boundary — ``insert_one``/``find_one``
+  become properly typed against the model class, instead of flowing
+  through untyped dicts.
+
+**What** ``PyObjectId`` **still provides, regardless of PYTHON-4192's fate:**
+
+- It solves the *other* boundary. Native ``document_class`` support
+  teaches PyMongo how to decode/encode BSON into a model — it does not
+  teach Pydantic how to render ``ObjectId`` as a JSON string or describe
+  it correctly in an OpenAPI schema. Even with native driver support,
+  an ``id: PyObjectId`` field still needs this serializer/schema
+  definition for FastAPI's response body and Swagger docs to work.
+- No driver-version coupling — works on any currently supported PyMongo
+  today, not gated on users upgrading to whichever version ships
+  PYTHON-4192.
+- Keeps the "raw document ↔ validated model" boundary explicit, for
+  applications that want persistence-layer dicts and API-layer models
+  to stay visibly separate rather than have Pydantic models flow all
+  the way down into driver internals.
+
+**Net effect if PYTHON-4192 ships:** what shrinks is the manual
+``model_dump``/``model_validate`` glue code at each route — not
+:class:`~fastapi_pymongo.PyObjectId` itself, which keeps doing its job
+at the API boundary either way.
 
 Related Jira tickets
 -----------------------
