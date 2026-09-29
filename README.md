@@ -57,3 +57,12 @@ pip install -e ".[dev,examples]"
 pip install -e ".[dev]"
 pytest
 ```
+
+## Related Jira tickets
+
+- [INTPYTHON-1087](https://jira.mongodb.org/browse/INTPYTHON-1087) — [SPIKE] FastAPI integration library for MongoDB (the spike this repo exists to prototype)
+- [PYTHON-4192](https://jira.mongodb.org/browse/PYTHON-4192) — Support data validation classes (dataclass, pydantic, custom class...) as `document_class` (Noah Stapp's PoC; see Background above)
+- [INTPYTHON-382](https://jira.mongodb.org/browse/INTPYTHON-382) — [FastAPI] Update full stack fastapi template to match modern repo (Blocked; the official-template gap this package is an alternative path around)
+- [INTPYTHON-565](https://jira.mongodb.org/browse/INTPYTHON-565) — CF: Django MongoDB Backend & Django Ninja support (Backlog; the Django-side precedent for a Pydantic-schema integration)
+- [PYTHON-3372](https://jira.mongodb.org/browse/PYTHON-3372) — Alt to full-stack-fastapi-postgresql (Epic, Dev Complete)
+- [PYTHON-5543](https://jira.mongodb.org/browse/PYTHON-5543) — pymongo 4.15+fastapi fails to connect to replicaset (Closed)
