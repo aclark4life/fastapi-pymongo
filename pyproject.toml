@@ -22,6 +22,10 @@ dev = [
     "pytest-asyncio",
     "httpx",
 ]
+examples = [
+    "celery>=5.3",
+    "redis>=5.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/aclark4life/fastapi-pymongo"

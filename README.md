@@ -35,11 +35,21 @@ boundary.
 
 ```bash
 pip install -e ".[dev]"
+# to run the Celery example too:
+pip install -e ".[dev,examples]"
 ```
 
-## Quickstart
+## Examples
 
-See [`examples/quickstart`](examples/quickstart) for a minimal CRUD app.
+- [`examples/quickstart`](examples/quickstart) — a minimal CRUD app.
+- [`examples/celery_worker`](examples/celery_worker) — a FastAPI app that
+  enqueues Celery tasks. Celery has no async support, so the worker uses a
+  sync PyMongo client while the app uses the async one, both built from the
+  same `MongoSettings`. This is the sync/async client-duplication pain
+  point named in the EDU team's feedback on
+  [INTPYTHON-1087](https://jira.mongodb.org/browse/INTPYTHON-1087) — there
+  is no unified sync/async client yet, so this example shows the two
+  clients sharing configuration rather than a connection.
 
 ## Development
 
