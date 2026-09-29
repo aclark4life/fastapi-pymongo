@@ -58,6 +58,16 @@ pip install -e ".[dev]"
 pytest
 ```
 
+## Documentation
+
+Sphinx docs (furo theme) live under `docs/source`:
+
+```bash
+pip install -e ".[docs]"
+sphinx-build -b html docs/source docs/build
+open docs/build/index.html
+```
+
 ## Related Jira tickets
 
 - [INTPYTHON-1087](https://jira.mongodb.org/browse/INTPYTHON-1087) — [SPIKE] FastAPI integration library for MongoDB (the spike this repo exists to prototype)

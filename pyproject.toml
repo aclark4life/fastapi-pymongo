@@ -26,6 +26,10 @@ examples = [
     "celery>=5.3",
     "redis>=5.0",
 ]
+docs = [
+    "sphinx>=7.0",
+    "furo",
+]
 
 [project.urls]
 Homepage = "https://github.com/aclark4life/fastapi-pymongo"
