@@ -9,7 +9,9 @@ from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
 from pydantic.json_schema import JsonSchemaValue
 from pydantic_core import core_schema
 
-# Relationship to PYTHON-4192 (NoahStapp/mongo-python-driver#6):
+# Relationship to PYTHON-4192:
+#   https://jira.mongodb.org/browse/PYTHON-4192
+#   https://github.com/NoahStapp/mongo-python-driver/pull/6
 #
 # That PoC is a real patch, not a small one: ~3,700 lines across 29 files,
 # touching both pymongo/synchronous/* and pymongo/asynchronous/*
