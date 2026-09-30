@@ -14,7 +14,7 @@ MongoDB's ``ObjectId`` isn't a Pydantic- or JSON-native type. Passed
 directly as a field type, Pydantic can't validate it, serialize it to
 JSON, or generate a sane OpenAPI schema for it — the single most common
 first-hour complaint in the FastAPI + MongoDB community (see
-`fastapi#1515 <https://github.com/fastapi/fastapi/issues/1515>`_).
+`fastapi#9074 <https://github.com/fastapi/fastapi/discussions/9074>`_).
 
 ``PyObjectId`` is a thin ``bson.ObjectId`` subclass that:
 
