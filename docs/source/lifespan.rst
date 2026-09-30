@@ -12,9 +12,8 @@ Why
 
 FastAPI recommends opening long-lived resources like a database client
 once, in the app's ``lifespan``, rather than per-request. ``mongo_lifespan``
-does exactly that for an ``AsyncMongoClient``, and stores it on
-``app.state`` so route handlers can reach it through a dependency instead
-of a global.
+does that for an ``AsyncMongoClient``, and stores it on ``app.state`` so
+route handlers can reach it through a dependency instead of a global.
 
 Usage
 -----
@@ -40,7 +39,7 @@ Inject the whole client:
        await client.admin.command("ping")
        return {"ok": True}
 
-Or inject the configured database directly — the common case:
+Or inject the configured database directly. This is the common case:
 
 .. code-block:: python
 
@@ -52,10 +51,10 @@ Or inject the configured database directly — the common case:
    async def list_items(db: AsyncDatabase = Depends(db_dependency)):
        return await db.items.find().to_list()
 
-What this does *not* do
--------------------------
+What this does not do
+------------------------
 
-There is no connection pooling configuration, retry policy, or
-multi-cluster routing here beyond what ``AsyncMongoClient(settings.uri)``
-gives you by default. If you need multiple clusters, construct additional
-clients and dependencies the same way, one per URI.
+No connection pooling configuration, retry policy, or multi-cluster
+routing beyond what ``AsyncMongoClient(settings.uri)`` gives you by
+default. For multiple clusters, construct additional clients and
+dependencies the same way, one per URI.

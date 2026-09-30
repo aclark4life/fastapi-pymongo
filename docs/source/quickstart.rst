@@ -2,7 +2,7 @@ Quickstart
 ==========
 
 This walks through the full example at
-`examples/quickstart/main.py <https://github.com/aclark4life/fastapi-pymongo/blob/main/examples/quickstart/main.py>`_ —
+`examples/quickstart/main.py <https://github.com/aclark4life/fastapi-pymongo/blob/main/examples/quickstart/main.py>`_,
 a minimal CRUD app.
 
 1. Configure settings and lifespan
@@ -20,12 +20,12 @@ a minimal CRUD app.
 
 ``MongoSettings`` reads ``MONGO_URI`` and ``MONGO_DATABASE`` from the
 environment (or a ``.env`` file), defaulting to
-``mongodb://localhost:27017`` and ``app``. See :doc:`settings` for how to
-add your own fields.
+``mongodb://localhost:27017`` and ``app``. See :doc:`settings` to add
+your own fields.
 
 ``mongo_lifespan(settings)`` opens an ``AsyncMongoClient`` on startup and
-closes it on shutdown, storing it on ``app.state``. See :doc:`lifespan` for
-the details.
+closes it on shutdown, storing it on ``app.state``. See :doc:`lifespan`
+for details.
 
 2. Define a model with a Pydantic-native ObjectId
 --------------------------------------------------
@@ -43,7 +43,7 @@ the details.
        price: float
 
 ``PyObjectId`` validates from either a real ``ObjectId`` or a hex string,
-and serializes to a plain string — so it round-trips through MongoDB
+and serializes to a plain string, so it round-trips through MongoDB
 documents and shows up correctly in OpenAPI/Swagger. See :doc:`objectid`.
 
 3. Write route handlers

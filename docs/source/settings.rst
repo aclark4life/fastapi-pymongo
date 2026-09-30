@@ -36,7 +36,7 @@ Adding your own settings
 --------------------------
 
 Subclass ``MongoSettings`` to add application-specific fields alongside
-the Mongo connection settings — they'll share the same ``.env`` file and
+the Mongo connection settings. They share the same ``.env`` file and
 prefix handling:
 
 .. code-block:: python

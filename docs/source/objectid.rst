@@ -10,10 +10,10 @@ PyObjectId
 Why this exists
 ----------------
 
-MongoDB's ``ObjectId`` isn't a Pydantic- or JSON-native type. Passed
-directly as a field type, Pydantic can't validate it, serialize it to
-JSON, or generate a sane OpenAPI schema for it — the single most common
-first-hour complaint in the FastAPI + MongoDB community (see
+MongoDB's ``ObjectId`` isn't a Pydantic- or JSON-native type. Pydantic
+can't validate it, serialize it to JSON, or generate an OpenAPI schema
+for it directly. This is the most common first-hour complaint in the
+FastAPI + MongoDB community (see
 `fastapi#9074 <https://github.com/fastapi/fastapi/discussions/9074>`_).
 
 ``PyObjectId`` is a thin ``bson.ObjectId`` subclass that:
@@ -39,8 +39,7 @@ Usage
        name: str
 
 - ``populate_by_name=True`` lets you construct ``Item(name=...)`` without
-  supplying ``_id`` yourself — ``default_factory=PyObjectId`` generates
-  one.
+  supplying ``_id``. ``default_factory=PyObjectId`` generates one.
 - ``alias="_id"`` makes ``model_dump(by_alias=True)`` produce a document
   with the ``_id`` key MongoDB expects.
 
@@ -51,5 +50,5 @@ To look up a document by its id from a route's string path parameter:
    doc = await db.items.find_one({"_id": PyObjectId(item_id)})
 
 ``PyObjectId(item_id)`` raises ``bson.errors.InvalidId`` if ``item_id``
-isn't a valid ObjectId string — consider catching that and returning a 404
+isn't a valid ObjectId string. Consider catching that and returning a 404
 or 422 rather than a 500.

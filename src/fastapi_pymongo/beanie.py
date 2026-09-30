@@ -3,7 +3,7 @@
 Beanie (https://github.com/BeanieODM/beanie) is a full ODM: schema
 validation, a query builder, and document relationships, all on top of
 Pydantic. ``fastapi_pymongo`` doesn't provide any of that (see the
-"Why a thin wrapper, not an ODM" note in the docs) -- this module is just
+"Why a thin wrapper, not an ODM" note in the docs). This module is just
 the lifespan wiring to run ``init_beanie`` alongside the rest of
 ``fastapi_pymongo``, reusing the same client and settings.
 
@@ -32,8 +32,8 @@ def beanie_lifespan(
 ):
     """Build a FastAPI ``lifespan`` that opens the client, runs ``init_beanie``, and closes on shutdown.
 
-    This replaces :func:`fastapi_pymongo.mongo_lifespan` -- use one or the
-    other, not both -- but the client it opens is stored the same way, so
+    This replaces :func:`fastapi_pymongo.mongo_lifespan`. Use one or the
+    other, not both. The client it opens is stored the same way, so
     :func:`fastapi_pymongo.get_client` and
     :func:`fastapi_pymongo.lifespan.get_database` keep working unchanged
     for any route that wants the raw PyMongo database alongside Beanie
