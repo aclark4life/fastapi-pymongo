@@ -29,6 +29,10 @@ class Item(BaseModel):
 
 @app.post("/items", response_model=Item)
 async def create_item(item: Item, db: AsyncDatabase = Depends(db_dependency)):
+    # If PYTHON-4192 ships (see src/fastapi_pymongo/types.py), this becomes:
+    #   await db.items.insert_one(item)
+    #   return item
+    # via CodecOptions(document_class=Item) on the collection.
     doc = item.model_dump(by_alias=True)
     await db.items.insert_one(doc)
     return doc
@@ -36,6 +40,10 @@ async def create_item(item: Item, db: AsyncDatabase = Depends(db_dependency)):
 
 @app.get("/items/{item_id}", response_model=Item)
 async def get_item(item_id: str, db: AsyncDatabase = Depends(db_dependency)):
+    # If PYTHON-4192 ships, find_one returns an Item directly:
+    #   item = await db.items.find_one({"_id": PyObjectId(item_id)})
+    #   if item is None: raise HTTPException(...)
+    #   return item
     doc = await db.items.find_one({"_id": PyObjectId(item_id)})
     if doc is None:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -44,6 +52,7 @@ async def get_item(item_id: str, db: AsyncDatabase = Depends(db_dependency)):
 
 @app.get("/items", response_model=list[Item])
 async def list_items(db: AsyncDatabase = Depends(db_dependency)):
+    # If PYTHON-4192 ships, .find() yields Item instances directly.
     return await db.items.find().to_list()
 
 
