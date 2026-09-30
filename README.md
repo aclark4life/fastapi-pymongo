@@ -42,7 +42,7 @@ open docs/build/index.html
   - **Leverage FastAPI/Pydantic?** `_id` isn't a valid Python field name or a Pydantic/JSON-native type. `PyObjectId` fixes serialization and schema. `MongoSettings` reuses the same model pattern for config.
   - **Thin wrapper feasible?** Yes. Built and tested: `PyObjectId`, `MongoSettings`, `mongo_lifespan`/`get_client`/`get_database`.
   - **Quickstart CRUD prototype?** Done. [`examples/quickstart`](examples/quickstart).
-  - **Packaging?** Name `fastapi-pymongo`, available on PyPI. Repo `aclark4life/fastapi-pymongo` (private). Not released yet.
+  - **Packaging?** Name `fastapi-pymongo`, available on PyPI.
   - **Beanie boundary?** No first-party ODM. See `docs/source/reference.rst` for why (MongoDB's PyMODM precedent was paused and archived). `beanie_lifespan` runs Beanie's `init_beanie` alongside this package for anyone who wants one. See [`examples/beanie`](examples/beanie), verified against real MongoDB. `PyObjectId` doesn't apply to Beanie models.
   - **Client metadata?** Open item.
   - **Cost estimate?** Open item.
