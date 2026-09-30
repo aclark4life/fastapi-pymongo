@@ -9,6 +9,27 @@ from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
 from pydantic.json_schema import JsonSchemaValue
 from pydantic_core import core_schema
 
+# Relationship to PYTHON-4192 (NoahStapp/mongo-python-driver#6):
+# that PoC teaches PyMongo's document_class to decode BSON directly into a
+# Pydantic v2 model or dataclass -- the driver boundary (BSON <-> Python
+# object, inside insert_one/find_one). PyObjectId operates at a different
+# boundary: Python object <-> JSON, where FastAPI turns a Pydantic model
+# into an HTTP response body and an OpenAPI schema. These aren't competing
+# solutions to the same problem:
+#
+# - Native document_class support would remove the per-route
+#   model_dump/model_validate boilerplate and cover the whole driver
+#   surface (bulk_write, find, aggregate, change streams, GridFS), benefiting
+#   every PyMongo consumer, not just FastAPI apps.
+# - PyObjectId still has to exist either way: native document_class support
+#   doesn't teach Pydantic how to render ObjectId as a JSON string or
+#   describe it in an OpenAPI schema, so an `id: PyObjectId` field keeps
+#   needing this serializer/schema regardless. It also has no
+#   driver-version coupling, working on any currently supported PyMongo.
+#
+# Net effect if PYTHON-4192 ships: the manual model_dump/model_validate glue
+# at each route shrinks -- not this module.
+
 
 class PyObjectId(_ObjectId):
     """``bson.ObjectId`` that validates from and serializes to a plain string.
