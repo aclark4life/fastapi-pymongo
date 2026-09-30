@@ -19,7 +19,7 @@ from beanie import init_beanie
 from fastapi import FastAPI
 from pymongo import AsyncMongoClient
 
-from fastapi_pymongo.lifespan import _STATE_KEY
+from fastapi_pymongo.lifespan import _DRIVER_METADATA, _STATE_KEY
 from fastapi_pymongo.settings import MongoSettings
 
 if TYPE_CHECKING:
@@ -47,7 +47,14 @@ def beanie_lifespan(
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-        client = AsyncMongoClient(settings.uri)
+        # init_beanie also calls database.client.append_metadata(name="beanie").
+        # That doesn't reliably reach the server (see the comment on
+        # _DRIVER_METADATA in lifespan.py for why: it misses each server's
+        # monitor pool, which performs the actual hello handshake). Only the
+        # driver= argument at client construction, below, is verified to
+        # work. So only "fastapi-pymongo" is guaranteed to show up
+        # server-side, not "beanie" as well.
+        client = AsyncMongoClient(settings.uri, driver=_DRIVER_METADATA)
         setattr(app.state, _STATE_KEY, client)
         try:
             await init_beanie(
