@@ -20,4 +20,3 @@ minimum glue to use MongoDB from FastAPI comfortably.
    :caption: Examples
 
    quickstart
-   celery

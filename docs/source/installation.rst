@@ -5,12 +5,6 @@ Installation
 
    pip install fastapi-pymongo
 
-To run the :doc:`Celery example <celery>` too:
-
-.. code-block:: bash
-
-   pip install "fastapi-pymongo[examples]"
-
 For local development (tests, the quickstart app):
 
 .. code-block:: bash

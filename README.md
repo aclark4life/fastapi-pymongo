@@ -35,21 +35,11 @@ boundary.
 
 ```bash
 pip install -e ".[dev]"
-# to run the Celery example too:
-pip install -e ".[dev,examples]"
 ```
 
 ## Examples
 
 - [`examples/quickstart`](examples/quickstart) — a minimal CRUD app.
-- [`examples/celery_worker`](examples/celery_worker) — a FastAPI app that
-  enqueues Celery tasks. Celery has no async support, so the worker uses a
-  sync PyMongo client while the app uses the async one, both built from the
-  same `MongoSettings`. This is the sync/async client-duplication pain
-  point named in the EDU team's feedback on
-  [INTPYTHON-1087](https://jira.mongodb.org/browse/INTPYTHON-1087) — there
-  is no unified sync/async client yet, so this example shows the two
-  clients sharing configuration rather than a connection.
 
 ## Development
 
@@ -76,6 +66,3 @@ open docs/build/index.html
 - [INTPYTHON-565](https://jira.mongodb.org/browse/INTPYTHON-565) — CF: Django MongoDB Backend & Django Ninja support (Backlog; the Django-side precedent for a Pydantic-schema integration)
 - [PYTHON-3372](https://jira.mongodb.org/browse/PYTHON-3372) — Alt to full-stack-fastapi-postgresql (Epic, Dev Complete)
 - [PYTHON-5543](https://jira.mongodb.org/browse/PYTHON-5543) — pymongo 4.15+fastapi fails to connect to replicaset (Closed)
-- [UP-7645](https://jira.mongodb.org/browse/UP-7645) — Migrate FastAPI to Containerized App on Kanopy (Epic, In Progress) — the EDU team's own FastAPI+PyMongo+Celery production usage that motivates the `examples/celery_worker` split
-- [UP-7031](https://jira.mongodb.org/browse/UP-7031) — Migrate FastAPI Lambda to Containerized Application (Epic, Backlog)
-- [UP-6976](https://jira.mongodb.org/browse/UP-6976) — Phase 1 Tech Spec for Migrate FastAPI Lambda to Kanopy (Closed)

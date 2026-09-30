@@ -10,10 +10,8 @@ relationships — that is squarely what full ODMs like
 This package covers only the narrow, recurring friction points at the
 FastAPI ↔ PyMongo boundary itself:
 
-- ``ObjectId`` not being a Pydantic/JSON-native type,
-- wiring a client into FastAPI's lifespan and dependency injection,
-- and sharing connection settings between an async web app and a sync
-  worker (e.g. Celery).
+- ``ObjectId`` not being a Pydantic/JSON-native type, and
+- wiring a client into FastAPI's lifespan and dependency injection.
 
 If you need querying, relationships, or schema migrations, reach for an
 ODM on top of this — or Beanie directly.
@@ -108,9 +106,3 @@ Related Jira tickets
   full-stack-fastapi-postgresql (Epic, Dev Complete)
 - `PYTHON-5543 <https://jira.mongodb.org/browse/PYTHON-5543>`_ — pymongo
   4.15+fastapi fails to connect to replicaset (Closed)
-- `UP-7645 <https://jira.mongodb.org/browse/UP-7645>`_ — Migrate FastAPI
-  to Containerized App on Kanopy (Epic, In Progress)
-- `UP-7031 <https://jira.mongodb.org/browse/UP-7031>`_ — Migrate FastAPI
-  Lambda to Containerized Application (Epic, Backlog)
-- `UP-6976 <https://jira.mongodb.org/browse/UP-6976>`_ — Phase 1 Tech Spec
-  for Migrate FastAPI Lambda to Kanopy (Closed)

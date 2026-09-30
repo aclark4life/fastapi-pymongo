@@ -90,6 +90,4 @@ Then open ``http://localhost:8000/docs`` for the interactive Swagger UI.
 Next steps
 ----------
 
-- Running Celery alongside FastAPI? See :doc:`celery` for the sync/async
-  client split.
 - Full API reference: :doc:`api`.
