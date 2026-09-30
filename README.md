@@ -42,6 +42,34 @@ sphinx-build -b html docs/source docs/build
 open docs/build/index.html
 ```
 
+## Spike questions
+
+Answers to the [INTPYTHON-1087](https://jira.mongodb.org/browse/INTPYTHON-1087) definition-of-done questions, as of this repo.
+
+**What is the minimum requirement to set up a FastAPI server that connects to MongoDB?**
+An `AsyncMongoClient`, opened once in FastAPI's `lifespan` and exposed to route handlers via `Depends()` — see `mongo_lifespan`/`get_client`/`get_database` and [`examples/quickstart`](examples/quickstart).
+
+**How can we leverage FastAPI mechanisms (such as Pydantic) to improve the experience of using MongoDB with FastAPI?**
+The recurring friction is `_id`: it isn't a valid Python field name (Pydantic treats a leading underscore as private, so it needs `Field(alias="_id")`), and `ObjectId` isn't a Pydantic/JSON-native type (Pydantic can't validate, serialize, or generate an OpenAPI schema for it without help). `PyObjectId` solves the second half; `MongoSettings` (built on `pydantic-settings`) reuses the same model-based pattern for config.
+
+**Technical feasibility for a thin wrapper on PyMongo dedicated to FastAPI (Pydantic-native ObjectId/BSON types, JSON serialization, client lifecycle via lifespan + DI, settings/config helpers)?**
+Feasible — built and tested. `PyObjectId` (types + JSON serialization), `MongoSettings` (config), `mongo_lifespan`/`get_client`/`get_database` (lifecycle + DI) are all in `src/fastapi_pymongo/`, with unit tests and a working example app.
+
+**Prototype the API surface on PyMongo Async — quickstart CRUD app.**
+Done: [`examples/quickstart`](examples/quickstart). Verified — imports cleanly, generates a valid OpenAPI schema.
+
+**Packaging: name, PyPI availability, repo location?**
+Name `fastapi-pymongo`, confirmed available on PyPI and as a GitHub repo name at the time of checking. Repo: `aclark4life/fastapi-pymongo` (currently private). Not released to PyPI yet.
+
+**Define the boundary with Beanie, or whether an ODM layer is needed.**
+No first-party ODM — see `docs/source/reference.rst` for why (an ODM is a large, ongoing maintenance commitment; MongoDB's own prior attempt, PyMODM, was paused and archived). `beanie_lifespan` (optional `fastapi-pymongo[beanie]` extra) runs Beanie's `init_beanie` alongside the rest of this package for anyone who wants a full ODM on top, reusing the same client/settings. See [`examples/beanie`](examples/beanie) — verified against a real MongoDB instance. `PyObjectId` doesn't apply to Beanie models; Beanie manages its own `id` field.
+
+**Define where to set the client metadata and how to update it.**
+Not yet addressed — open item.
+
+**Cost estimation for implementation, including a Pydantic/FastAPI version-compatibility matrix, ownership, and release cadence.**
+Not yet addressed — open item.
+
 ## Related Jira tickets
 
 - [INTPYTHON-1087](https://jira.mongodb.org/browse/INTPYTHON-1087) — [SPIKE] FastAPI integration library for MongoDB (the spike this repo exists to prototype)
