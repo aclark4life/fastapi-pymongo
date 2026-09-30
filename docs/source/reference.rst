@@ -19,5 +19,5 @@ top of this, or Beanie directly. See :doc:`beanie`:
 initialization alongside the rest of ``fastapi_pymongo``, reusing the
 same client and settings.
 
-See the repo `README <https://github.com/aclark4life/fastapi-pymongo#related-jira-tickets>`_
+See the repo `README <https://github.com/aclark4life/fastapi-pymongo#references>`_
 for related Jira tickets.

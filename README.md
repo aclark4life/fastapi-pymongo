@@ -35,7 +35,7 @@ sphinx-build -b html docs/source docs/build
 open docs/build/index.html
 ```
 
-## Related Jira tickets
+## References
 
 - [INTPYTHON-1087](https://jira.mongodb.org/browse/INTPYTHON-1087): [SPIKE] FastAPI integration library for MongoDB. This repo is the prototype. DoD answers:
   - **Minimum setup?** `AsyncMongoClient` via FastAPI `lifespan` and `Depends()`. See `mongo_lifespan`/`get_client`/`get_database`, [`examples/quickstart`](examples/quickstart).
