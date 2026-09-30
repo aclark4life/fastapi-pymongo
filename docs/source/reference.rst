@@ -19,18 +19,5 @@ top of this, or Beanie directly. See :doc:`beanie`:
 initialization alongside the rest of ``fastapi_pymongo``, reusing the
 same client and settings.
 
-Related Jira tickets
------------------------
-
-- `INTPYTHON-1087 <https://jira.mongodb.org/browse/INTPYTHON-1087>`_:
-  [SPIKE] FastAPI integration library for MongoDB. This repo is the
-  prototype.
-- `INTPYTHON-382 <https://jira.mongodb.org/browse/INTPYTHON-382>`_:
-  [FastAPI] Update full stack fastapi template to match modern repo.
-  Blocked.
-- `INTPYTHON-565 <https://jira.mongodb.org/browse/INTPYTHON-565>`_: CF:
-  Django MongoDB Backend and Django Ninja support. Backlog.
-- `PYTHON-3372 <https://jira.mongodb.org/browse/PYTHON-3372>`_: Alt to
-  full-stack-fastapi-postgresql. Epic, dev complete.
-- `PYTHON-5543 <https://jira.mongodb.org/browse/PYTHON-5543>`_: pymongo
-  4.15+fastapi fails to connect to replicaset. Closed.
+See the repo `README <https://github.com/aclark4life/fastapi-pymongo#related-jira-tickets>`_
+for related Jira tickets.
