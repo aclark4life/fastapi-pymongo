@@ -9,11 +9,6 @@ FastAPI integration for PyMongo:
 - `mongo_lifespan` / `get_client` / `get_database` — client lifecycle wired
   to FastAPI's `lifespan`, exposed to route handlers via `Depends()`.
 
-## Status
-
-Early scaffold (see [INTPYTHON-1087](https://jira.mongodb.org/browse/INTPYTHON-1087)).
-Not released to PyPI yet.
-
 ## Background
 
 MongoDB's own driver team has a proof of concept
