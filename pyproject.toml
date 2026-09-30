@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fastapi-pymongo"
 version = "0.1.0.dev0"
-description = "Thin FastAPI integration for PyMongo: Pydantic-native BSON types, client lifespan/DI, settings helpers."
+description = "FastAPI integration for PyMongo: Pydantic-native BSON types, client lifespan/DI, settings helpers."
 readme = "README.md"
 license = { text = "Apache-2.0" }
 requires-python = ">=3.10"

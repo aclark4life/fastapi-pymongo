@@ -1,7 +1,6 @@
 # fastapi-pymongo
 
-Thin FastAPI integration for PyMongo. No ODM, no code generator — just the
-minimum glue to use MongoDB from FastAPI comfortably:
+FastAPI integration for PyMongo:
 
 - `PyObjectId` — a Pydantic-native `ObjectId` that validates and serializes
   to a plain string, with a correct OpenAPI/JSON schema.
