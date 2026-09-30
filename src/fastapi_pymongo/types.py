@@ -1,12 +1,4 @@
-"""Pydantic-native BSON types.
-
-Standalone counterpart to the ``document_class`` protocol prototyped in
-https://github.com/NoahStapp/mongo-python-driver/pull/6 (PYTHON-4192). That
-work teaches PyMongo itself to decode straight into a Pydantic model; until
-it ships, this module gets the same day-to-day ergonomics (``ObjectId`` as a
-normal, JSON-schema-correct Pydantic field) without depending on a patched
-driver.
-"""
+"""Pydantic-native BSON types."""
 
 from __future__ import annotations
 

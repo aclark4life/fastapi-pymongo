@@ -53,14 +53,3 @@ To look up a document by its id from a route's string path parameter:
 ``PyObjectId(item_id)`` raises ``bson.errors.InvalidId`` if ``item_id``
 isn't a valid ObjectId string — consider catching that and returning a 404
 or 422 rather than a 500.
-
-Relationship to PYTHON-4192
------------------------------
-
-MongoDB's driver team has a proof of concept
-(`NoahStapp/mongo-python-driver#6 <https://github.com/NoahStapp/mongo-python-driver/pull/6>`_,
-tracked as `PYTHON-4192 <https://jira.mongodb.org/browse/PYTHON-4192>`_)
-that teaches PyMongo's ``document_class`` to decode BSON directly into a
-Pydantic v2 model at the driver level. ``PyObjectId`` is a standalone way
-to get similar day-to-day ergonomics today, without depending on a patched
-driver. If PYTHON-4192 ships, this module may shrink or defer to it.
