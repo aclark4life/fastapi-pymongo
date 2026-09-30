@@ -8,6 +8,9 @@ FastAPI integration for PyMongo:
   database name (subclass it to add your own app settings).
 - `mongo_lifespan` / `get_client` / `get_database` — client lifecycle wired
   to FastAPI's `lifespan`, exposed to route handlers via `Depends()`.
+- `beanie_lifespan` (optional, `fastapi-pymongo[beanie]`) — runs
+  [Beanie](https://github.com/BeanieODM/beanie)'s `init_beanie` alongside
+  the rest of `fastapi_pymongo`, for anyone who wants an ODM on top.
 
 ## Background
 
@@ -33,7 +36,10 @@ pip install -e ".[dev]"
 
 ## Examples
 
-- [`examples/quickstart`](examples/quickstart) — a minimal CRUD app.
+- [`examples/quickstart`](examples/quickstart) — a minimal CRUD app, raw PyMongo.
+- [`examples/beanie`](examples/beanie) — the same CRUD app on
+  [Beanie](https://github.com/BeanieODM/beanie) instead. Verified against
+  a real MongoDB instance (create/list/get/delete).
 
 ## Development
 

@@ -26,6 +26,9 @@ docs = [
     "sphinx>=7.0",
     "furo",
 ]
+beanie = [
+    "beanie>=1.26",
+]
 
 [project.urls]
 Homepage = "https://github.com/aclark4life/fastapi-pymongo"

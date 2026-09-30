@@ -19,3 +19,4 @@ FastAPI integration for PyMongo.
    :caption: Examples
 
    quickstart
+   beanie

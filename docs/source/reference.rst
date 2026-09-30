@@ -14,7 +14,10 @@ FastAPI ↔ PyMongo boundary itself:
 - wiring a client into FastAPI's lifespan and dependency injection.
 
 If you need querying, relationships, or schema migrations, reach for an
-ODM on top of this — or Beanie directly.
+ODM on top of this — or Beanie directly. See :doc:`beanie` for how the
+two compose: :func:`fastapi_pymongo.beanie.beanie_lifespan` runs Beanie's
+own initialization alongside the rest of ``fastapi_pymongo``, reusing the
+same client and settings.
 
 Relationship to PYTHON-4192
 -----------------------------
