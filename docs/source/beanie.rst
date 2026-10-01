@@ -80,10 +80,15 @@ and delete all round-trip correctly, including a 404 after delete.
 Where PyObjectId fits
 ------------------------
 
-It doesn't, for Beanie models. Beanie ships its own ``PydanticObjectId``
-and manages the ``id`` field itself. :class:`fastapi_pymongo.PyObjectId`
-is for the raw-PyMongo path (see :doc:`quickstart` and :doc:`objectid`),
-not for documents defined as ``beanie.Document`` subclasses.
+Nowhere useful, for Beanie models. Overriding ``id`` with
+:class:`fastapi_pymongo.PyObjectId` on a ``beanie.Document`` subclass
+works (verified against a real server: insert, ``get``, and the JSON
+schema all round-trip correctly), but it's redundant. Beanie's own
+``PydanticObjectId`` already validates from and serializes to a plain
+string, the same job :class:`~fastapi_pymongo.PyObjectId` does.
+:class:`~fastapi_pymongo.PyObjectId` is for the raw-PyMongo path (see
+:doc:`quickstart` and :doc:`objectid`); leave ``beanie.Document``
+subclasses on Beanie's default ``id`` field.
 
 Using both in the same app
 -----------------------------
