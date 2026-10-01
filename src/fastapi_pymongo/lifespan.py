@@ -15,28 +15,19 @@ from fastapi_pymongo.settings import MongoSettings
 
 _STATE_KEY = "fastapi_pymongo_client"
 
-# Client metadata: identifies this package to the server (visible in server
-# logs and $currentOp's clientMetadata), the same mechanism Beanie uses (see
-# beanie.odm.utils.init._DRIVER_METADATA). Set at client construction, via
-# the `driver` argument. Verified against a real server (checked
-# $currentOp.clientMetadata.driver.name): this is the only reliable place to
-# set it.
+# Client metadata identifies this package to the server (see
+# $currentOp.clientMetadata.driver.name). Set it via the `driver` argument
+# at construction, like Beanie does (beanie.odm.utils.init._DRIVER_METADATA).
 #
-# PyMongo also exposes client.append_metadata(DriverInfo(...)) for an
-# already-open client (added in 4.14). It does update client._options.pool_options
-# (and the app/command connection pool, which references that same object),
-# but NOT the per-server monitor pool: Topology._create_pool_for_monitor()
-# builds its own PoolOptions copy once, when the monitor is first created
-# (pymongo/synchronous/topology.py), independent of the client's pool_options
-# from then on. Since the monitor performs each server's initial hello
-# handshake, that's the metadata $currentOp actually reports. Confirmed by
-# comparing server.pool.opts.metadata (updated) against
-# server._monitor._pool.opts.metadata (stale) on the same client after
-# calling append_metadata. Do not rely on append_metadata for monitor
-# connections; set metadata at construction instead. Filed as PYTHON-6130,
-# closed Works as Designed: per the handshake spec, drivers must not apply
-# updated metadata to already-established connections, and the monitor's
-# initial hello happens before append_metadata could run.
+# Do not use client.append_metadata() instead. It updates the client's own
+# connection pool, but not the per-server monitor pool: monitors build their
+# own PoolOptions copy once, at creation, from the original driver value
+# (pymongo/synchronous/topology.py Topology._create_pool_for_monitor). The
+# monitor's initial hello is what $currentOp reports, so append_metadata
+# never reaches it. This is PYTHON-6130, closed Works as Designed: the
+# handshake spec forbids applying updated metadata to connections already
+# established, and the monitor's hello happens before append_metadata could
+# run.
 _DRIVER_METADATA = DriverInfo(name="fastapi-pymongo", version=version("fastapi-pymongo"))
 
 
