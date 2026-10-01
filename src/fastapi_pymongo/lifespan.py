@@ -18,16 +18,6 @@ _STATE_KEY = "fastapi_pymongo_client"
 # Client metadata identifies this package to the server (see
 # $currentOp.clientMetadata.driver.name). Set it via the `driver` argument
 # at construction, like Beanie does (beanie.odm.utils.init._DRIVER_METADATA).
-#
-# Do not use client.append_metadata() instead. It updates the client's own
-# connection pool, but not the per-server monitor pool: monitors build their
-# own PoolOptions copy once, at creation, from the original driver value
-# (pymongo/synchronous/topology.py Topology._create_pool_for_monitor). The
-# monitor's initial hello is what $currentOp reports, so append_metadata
-# never reaches it. This is PYTHON-6130, closed Works as Designed: the
-# handshake spec forbids applying updated metadata to connections already
-# established, and the monitor's hello happens before append_metadata could
-# run.
 _DRIVER_METADATA = DriverInfo(name="fastapi-pymongo", version=version("fastapi-pymongo"))
 
 
