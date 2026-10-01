@@ -32,8 +32,11 @@ _STATE_KEY = "fastapi_pymongo_client"
 # handshake, that's the metadata $currentOp actually reports. Confirmed by
 # comparing server.pool.opts.metadata (updated) against
 # server._monitor._pool.opts.metadata (stale) on the same client after
-# calling append_metadata. Do not rely on append_metadata; set metadata at
-# construction instead. Filed as PYTHON-6130.
+# calling append_metadata. Do not rely on append_metadata for monitor
+# connections; set metadata at construction instead. Filed as PYTHON-6130,
+# closed Works as Designed: per the handshake spec, drivers must not apply
+# updated metadata to already-established connections, and the monitor's
+# initial hello happens before append_metadata could run.
 _DRIVER_METADATA = DriverInfo(name="fastapi-pymongo", version=version("fastapi-pymongo"))
 
 
