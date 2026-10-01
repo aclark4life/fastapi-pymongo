@@ -15,9 +15,11 @@ from fastapi_pymongo.settings import MongoSettings
 
 _STATE_KEY = "fastapi_pymongo_client"
 
-# Client metadata identifies this package to the server (see
-# $currentOp.clientMetadata.driver.name). Set it via the `driver` argument
-# at construction, like Beanie does (beanie.odm.utils.init._DRIVER_METADATA).
+# Internal: tags clients this package creates, for server-side logs and
+# $currentOp.clientMetadata.driver.name. Not exposed to library consumers.
+# Set via the `driver` argument at construction (see beanie.py for why:
+# metadata set after construction, e.g. via append_metadata, doesn't
+# reliably reach the server).
 _DRIVER_METADATA = DriverInfo(name="fastapi-pymongo", version=version("fastapi-pymongo"))
 
 
