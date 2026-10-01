@@ -13,6 +13,7 @@ FastAPI integration for PyMongo.
    lifespan
    api
    reference
+   changelog
 
 .. toctree::
    :maxdepth: 2
