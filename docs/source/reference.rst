@@ -1,10 +1,10 @@
 Reference
 =========
 
-Why a thin wrapper, not an ODM
+Why
 --------------------------------
 
-``fastapi-pymongo`` does not persist objects, build queries, or manage
+``fastapi-pymongo`` is not an ODM. It does not persist objects, build queries, or manage
 relationships. That's what full ODMs like
 `Beanie <https://github.com/BeanieODM/beanie>`_ do, and do well. This
 package covers only two narrow, recurring friction points at the

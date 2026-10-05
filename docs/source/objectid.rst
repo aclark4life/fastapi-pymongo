@@ -7,7 +7,7 @@ PyObjectId
    :members:
    :show-inheritance:
 
-Why this exists
+Why
 ----------------
 
 MongoDB's ``ObjectId`` isn't a Pydantic- or JSON-native type. Pydantic

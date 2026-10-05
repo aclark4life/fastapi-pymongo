@@ -7,6 +7,16 @@ Settings
    :members:
    :show-inheritance:
 
+Why
+---
+
+FastAPI apps commonly read config from the environment, with different
+values per deployment (local, staging, production). ``MongoSettings``
+gives the Mongo connection the same treatment, using
+`pydantic-settings <https://docs.pydantic.dev/latest/concepts/pydantic_settings/>`_
+so connection settings validate and type-check like the rest of the app's
+configuration, instead of ad-hoc ``os.environ`` reads scattered through the code.
+
 Usage
 -----
 

@@ -6,6 +6,9 @@ This walks through
 the same CRUD app as :doc:`quickstart`, built on
 `Beanie <https://github.com/BeanieODM/beanie>`_ instead of raw PyMongo.
 
+Why
+---
+
 ``fastapi_pymongo`` does not implement an ODM (see :doc:`reference`).
 This module is the lifespan wiring to run Beanie's own initialization
 (``init_beanie``) alongside the rest of ``fastapi_pymongo``, reusing the
