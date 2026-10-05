@@ -39,7 +39,7 @@ open docs/build/index.html
 
 - [INTPYTHON-1087](https://jira.mongodb.org/browse/INTPYTHON-1087): [SPIKE] FastAPI integration library for MongoDB. This repo is the prototype. DoD answers:
   - **Minimum setup?** `AsyncMongoClient` via FastAPI `lifespan` and `Depends()`. See `mongo_lifespan`/`get_client`/`get_database`, [`examples/quickstart`](examples/quickstart).
-  - **Leverage FastAPI/Pydantic?** `_id` isn't a valid Python field name or a Pydantic/JSON-native type. `PyObjectId` fixes serialization and schema. `MongoSettings` reuses the same model pattern for config. This is the most common first-hour complaint in the FastAPI + MongoDB community ([fastapi#9074](https://github.com/fastapi/fastapi/discussions/9074)); this is the same pattern users already land on by hand, as a maintained, tested thin layer instead of copy-pasted snippets.
+  - **Leverage FastAPI/Pydantic?** `_id` isn't a valid Python field name or a Pydantic/JSON-native type. `PyObjectId` fixes serialization and schema. `MongoSettings` reuses the same model pattern for config. This is the most common first-hour complaint in the FastAPI + MongoDB community ([fastapi#9074](https://github.com/fastapi/fastapi/discussions/9074), also requested upstream in [pydantic-extra-types#133](https://github.com/pydantic/pydantic-extra-types/issues/133)); this is the same pattern users already land on by hand, as a maintained, tested thin layer instead of copy-pasted snippets.
   - **Thin wrapper feasible?** Yes. Built and tested: `PyObjectId`, `MongoSettings`, `mongo_lifespan`/`get_client`/`get_database`.
   - **Quickstart CRUD prototype?** Done. [`examples/quickstart`](examples/quickstart).
   - **Packaging?** Name `fastapi-pymongo`, [reserved on PyPI](https://pypi.org/project/fastapi-pymongo/).
