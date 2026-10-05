@@ -10,12 +10,11 @@ Settings
 Why
 ---
 
-FastAPI apps commonly read config from the environment, with different
-values per deployment (local, staging, production). ``MongoSettings``
-gives the Mongo connection the same treatment, using
+FastAPI apps read config from the environment. Values differ per
+deployment. ``MongoSettings`` applies
 `pydantic-settings <https://docs.pydantic.dev/latest/concepts/pydantic_settings/>`_
-so connection settings validate and type-check like the rest of the app's
-configuration, instead of ad-hoc ``os.environ`` reads scattered through the code.
+to the Mongo connection. Connection settings validate and type-check like
+the rest of the app's config. No ad-hoc ``os.environ`` reads.
 
 Usage
 -----

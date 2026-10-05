@@ -85,7 +85,7 @@ documents and shows up correctly in OpenAPI/Swagger. See :doc:`objectid`.
 
    uvicorn examples.quickstart.main:app --reload
 
-Then open ``http://localhost:8000/docs`` for the interactive Swagger UI.
+Then open ``http://localhost:8000/docs`` for Swagger UI.
 
 Next steps
 ----------

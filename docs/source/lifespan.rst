@@ -55,6 +55,5 @@ What this does not do
 ------------------------
 
 No connection pooling configuration, retry policy, or multi-cluster
-routing beyond what ``AsyncMongoClient(settings.uri)`` gives you by
-default. For multiple clusters, construct additional clients and
-dependencies the same way, one per URI.
+routing beyond what ``AsyncMongoClient(settings.uri)`` gives by default.
+For multiple clusters, construct one client and dependency per URI.

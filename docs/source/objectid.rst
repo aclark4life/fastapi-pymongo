@@ -35,8 +35,8 @@ ships a ``MongoObjectId`` with the same goal. Differences:
   ``isinstance`` checks and direct use in PyMongo queries (``{"_id": item.id}``)
   are less predictable,
 - it serializes with ``when_used="json"``, so ``.model_dump()`` yields an
-  ``ObjectId`` while ``.model_dump(mode="json")`` yields a string — two
-  shapes depending on mode, and
+  ``ObjectId`` and ``.model_dump(mode="json")`` yields a string. The dump
+  shape depends on the mode, and
 - it adds a dependency for ~30 lines this package now owns and tests.
 
 ``PyObjectId`` subclasses ``bson.ObjectId`` directly: it is an ``ObjectId``,
@@ -46,7 +46,7 @@ Why not ``beanie.PydanticObjectId``
 --------------------------------------------------
 
 `Beanie <https://github.com/BeanieODM/beanie>`_'s ``PydanticObjectId``
-solves the same problem, well — but it requires installing Beanie, a full
+solves the same problem. But it requires installing Beanie, a full
 ODM, to get one field type. If you are already using Beanie, use
 ``beanie.PydanticObjectId`` (see :doc:`beanie`). If you are on raw PyMongo,
 ``PyObjectId`` gives you the field without the ODM.
