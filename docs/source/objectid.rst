@@ -21,8 +21,9 @@ FastAPI + MongoDB community (see
 - validates from either a real ``ObjectId`` instance or a valid hex string,
 - serializes to a plain string wherever Pydantic serializes the model
   (``.model_dump_json()``, FastAPI responses, etc.), and
-- reports ``{"type": "string"}`` in the generated JSON Schema / OpenAPI
-  docs.
+- now reports a ``string`` schema constrained to the 24-hex-character
+  ObjectId shape (``minLength``/``maxLength``/``pattern``) in the generated
+  JSON Schema / OpenAPI docs.
 
 Why not ``pydantic_extra_types.MongoObjectId``
 --------------------------------------------------
