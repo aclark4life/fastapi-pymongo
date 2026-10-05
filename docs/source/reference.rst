@@ -20,4 +20,7 @@ initialization alongside the rest of ``fastapi_pymongo``, reusing the
 same client and settings.
 
 See the repo `README <https://github.com/aclark4life/fastapi-pymongo#references>`_
-for related Jira tickets.
+for related Jira tickets. The community discussion behind ``PyObjectId``:
+`fastapi#9074 <https://github.com/fastapi/fastapi/discussions/9074>`_;
+the same request upstream:
+`pydantic-extra-types#133 <https://github.com/pydantic/pydantic-extra-types/issues/133>`_.
