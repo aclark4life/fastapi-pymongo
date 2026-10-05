@@ -13,7 +13,7 @@ class MongoSettings(BaseSettings):
             jwt_secret: str
     """
 
-    model_config = SettingsConfigDict(env_prefix="MONGO_", env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore", populate_by_name=True)
 
-    uri: str = Field(default="mongodb://localhost:27017")
-    database: str = Field(default="app")
+    uri: str = Field(default="mongodb://localhost:27017", validation_alias="MONGODB_URI")
+    database: str = Field(default="app", validation_alias="MONGODB_DATABASE")

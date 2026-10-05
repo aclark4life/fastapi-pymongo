@@ -30,10 +30,10 @@ file in the current directory):
      - Env var
      - Default
    * - ``uri``
-     - ``MONGO_URI``
+     - ``MONGODB_URI``
      - ``mongodb://localhost:27017``
    * - ``database``
-     - ``MONGO_DATABASE``
+     - ``MONGODB_DATABASE``
      - ``app``
 
 .. code-block:: python

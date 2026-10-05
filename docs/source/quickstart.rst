@@ -18,7 +18,7 @@ a minimal CRUD app.
    app = FastAPI(lifespan=mongo_lifespan(settings))
    db_dependency = get_database(settings)
 
-``MongoSettings`` reads ``MONGO_URI`` and ``MONGO_DATABASE`` from the
+``MongoSettings`` reads ``MONGODB_URI`` and ``MONGODB_DATABASE`` from the
 environment (or a ``.env`` file), defaulting to
 ``mongodb://localhost:27017`` and ``app``. See :doc:`settings` to add
 your own fields.

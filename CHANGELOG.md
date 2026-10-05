@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- `MongoSettings` now reads `MONGODB_URI` and `MONGODB_DATABASE` instead of
+  `MONGO_URI` and `MONGO_DATABASE`, matching the conventional `MONGODB_*`
+  environment-variable names.
 - `PyObjectId` now emits `minLength`, `maxLength`, and `pattern` in its JSON
   schema, so OpenAPI consumers reject malformed ObjectIds from the schema
   alone.
