@@ -37,7 +37,7 @@ ships a ``MongoObjectId`` with the same goal. Differences:
 - it serializes with ``when_used="json"``, so ``.model_dump()`` yields an
   ``ObjectId`` while ``.model_dump(mode="json")`` yields a string — two
   shapes depending on mode, and
-- it adds a dependency for ~30 lines this package already owns and tests.
+- it adds a dependency for ~30 lines this package now owns and tests.
 
 ``PyObjectId`` subclasses ``bson.ObjectId`` directly: it is an ``ObjectId``,
 always serializes to a plain string, and needs no extra dependency.
