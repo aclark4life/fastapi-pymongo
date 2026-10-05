@@ -24,6 +24,32 @@ FastAPI + MongoDB community (see
 - reports ``{"type": "string"}`` in the generated JSON Schema / OpenAPI
   docs.
 
+Why not ``pydantic_extra_types.MongoObjectId``
+--------------------------------------------------
+
+`pydantic-extra-types <https://github.com/pydantic/pydantic-extra-types>`_
+ships a ``MongoObjectId`` with the same goal. Differences:
+
+- it subclasses ``str`` while validating to ``ObjectId`` instances, so
+  ``isinstance`` checks and direct use in PyMongo queries (``{"_id": item.id}``)
+  are less predictable,
+- it serializes with ``when_used="json"``, so ``.model_dump()`` yields an
+  ``ObjectId`` while ``.model_dump(mode="json")`` yields a string — two
+  shapes depending on mode, and
+- it adds a dependency for ~30 lines this package already owns and tests.
+
+``PyObjectId`` subclasses ``bson.ObjectId`` directly: it is an ``ObjectId``,
+always serializes to a plain string, and needs no extra dependency.
+
+Why not ``beanie.PydanticObjectId``
+--------------------------------------------------
+
+`Beanie <https://github.com/BeanieODM/beanie>`_'s ``PydanticObjectId``
+solves the same problem, well — but it requires installing Beanie, a full
+ODM, to get one field type. If you are already using Beanie, use
+``beanie.PydanticObjectId`` (see :doc:`beanie`). If you are on raw PyMongo,
+``PyObjectId`` gives you the field without the ODM.
+
 Usage
 -----
 
