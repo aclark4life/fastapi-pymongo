@@ -41,4 +41,11 @@ def test_serializes_to_string_in_json():
 
 def test_json_schema_is_string():
     schema = Item.model_json_schema()
-    assert schema["properties"]["_id"]["type"] == "string"
+    assert schema["properties"]["_id"] == {
+        "type": "string",
+        "minLength": 24,
+        "maxLength": 24,
+        "pattern": "^[0-9a-f]{24}$",
+        "example": "507f1f77bcf86cd799439011",
+        "title": "Id",
+    }

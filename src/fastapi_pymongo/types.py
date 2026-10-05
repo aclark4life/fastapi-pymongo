@@ -78,4 +78,10 @@ class PyObjectId(_ObjectId):
     def __get_pydantic_json_schema__(
         cls, schema: core_schema.CoreSchema, handler: GetJsonSchemaHandler
     ) -> JsonSchemaValue:
-        return {"type": "string", "example": "507f1f77bcf86cd799439011"}
+        return {
+            "type": "string",
+            "minLength": 24,
+            "maxLength": 24,
+            "pattern": "^[0-9a-f]{24}$",
+            "example": "507f1f77bcf86cd799439011",
+        }
