@@ -60,9 +60,15 @@ documents and shows up correctly in OpenAPI/Swagger. See :doc:`objectid`.
        await db.items.insert_one(doc)
        return doc
 
+   def _objectid_or_404(item_id: str) -> PyObjectId:
+       """Return a PyObjectId, or raise 404 if item_id is not valid."""
+       if not PyObjectId.is_valid(item_id):
+           raise HTTPException(status_code=404, detail="Item not found")
+       return PyObjectId(item_id)
+
    @app.get("/items/{item_id}", response_model=Item)
    async def get_item(item_id: str, db: AsyncDatabase = Depends(db_dependency)):
-       doc = await db.items.find_one({"_id": PyObjectId(item_id)})
+       doc = await db.items.find_one({"_id": _objectid_or_404(item_id)})
        if doc is None:
            raise HTTPException(status_code=404, detail="Item not found")
        return doc
@@ -73,7 +79,7 @@ documents and shows up correctly in OpenAPI/Swagger. See :doc:`objectid`.
 
    @app.delete("/items/{item_id}")
    async def delete_item(item_id: str, db: AsyncDatabase = Depends(db_dependency)):
-       result = await db.items.delete_one({"_id": PyObjectId(item_id)})
+       result = await db.items.delete_one({"_id": _objectid_or_404(item_id)})
        if result.deleted_count == 0:
            raise HTTPException(status_code=404, detail="Item not found")
        return {"deleted": True}

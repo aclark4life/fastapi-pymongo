@@ -31,6 +31,14 @@ def test_rejects_invalid_string():
         Item(_id="not-an-object-id", name="widget")
 
 
+def test_serializes_to_objectid_in_python_mode():
+    oid = ObjectId()
+    item = Item(_id=oid, name="widget")
+    dump = item.model_dump(by_alias=True)
+    assert isinstance(dump["_id"], ObjectId)
+    assert dump["_id"] == oid
+
+
 def test_serializes_to_string_in_json():
     oid = ObjectId()
     item = Item(_id=oid, name="widget")

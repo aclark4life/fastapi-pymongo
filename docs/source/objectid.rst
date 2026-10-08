@@ -19,8 +19,10 @@ FastAPI + MongoDB community (see
 ``PyObjectId`` is a thin ``bson.ObjectId`` subclass that:
 
 - validates from either a real ``ObjectId`` instance or a valid hex string,
-- serializes to a plain string wherever Pydantic serializes the model
-  (``.model_dump_json()``, FastAPI responses, etc.), and
+- serializes to a plain string in JSON mode (``.model_dump_json()``,
+  ``.model_dump(mode="json")``, FastAPI responses). Python-mode
+  ``.model_dump()`` yields the ``ObjectId`` itself, so the dump is a
+  valid BSON document for ``insert_one``, and
 - now reports a ``string`` schema constrained to the 24-hex-character
   ObjectId shape (``minLength``/``maxLength``/``pattern``) in the generated
   JSON Schema / OpenAPI docs.
@@ -36,11 +38,11 @@ ships a ``MongoObjectId`` with the same goal. Differences:
   are less predictable,
 - it serializes with ``when_used="json"``, so ``.model_dump()`` yields an
   ``ObjectId`` and ``.model_dump(mode="json")`` yields a string. The dump
-  shape depends on the mode, and
+  shape depends on the mode,
 - it adds a dependency for ~30 lines this package now owns and tests.
 
 ``PyObjectId`` subclasses ``bson.ObjectId`` directly: it is an ``ObjectId``,
-always serializes to a plain string, and needs no extra dependency.
+usable as a PyMongo key without conversion, and needs no extra dependency.
 
 Why not ``beanie.PydanticObjectId``
 --------------------------------------------------
@@ -74,8 +76,10 @@ To look up a document by its id from a route's string path parameter:
 
 .. code-block:: python
 
+   if not PyObjectId.is_valid(item_id):
+       raise HTTPException(status_code=404, detail="Item not found")
    doc = await db.items.find_one({"_id": PyObjectId(item_id)})
 
-``PyObjectId(item_id)`` raises ``bson.errors.InvalidId`` if ``item_id``
-isn't a valid ObjectId string. Consider catching that and returning a 404
-or 422 rather than a 500.
+``PyObjectId.is_valid`` is ``bson.ObjectId.is_valid``. Call it before you
+construct the ``PyObjectId``. Otherwise ``PyObjectId(item_id)`` raises
+``bson.errors.InvalidId`` and the route returns a 500.

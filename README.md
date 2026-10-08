@@ -2,7 +2,7 @@
 
 FastAPI integration for PyMongo:
 
-- `PyObjectId`: Pydantic-native `ObjectId`. Validates and serializes to a string, correct OpenAPI/JSON schema.
+- `PyObjectId`: Pydantic-native `ObjectId`. Validates from `ObjectId` or hex string, serializes to a string in JSON mode (Python-mode dumps keep the `ObjectId`, so documents round-trip through `insert_one`), correct OpenAPI/JSON schema.
 - `MongoSettings`: `pydantic-settings` base class for Mongo URI and database name. Subclass to add app settings.
 - `mongo_lifespan` / `get_client` / `get_database`: client lifecycle wired to FastAPI's `lifespan`, exposed via `Depends()`.
 - `beanie_lifespan` (optional, `fastapi-pymongo[beanie]`): runs [Beanie](https://github.com/BeanieODM/beanie)'s `init_beanie` alongside the rest of `fastapi_pymongo`, for an ODM on top.

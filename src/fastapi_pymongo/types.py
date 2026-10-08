@@ -63,7 +63,9 @@ class PyObjectId(_ObjectId):
     ) -> core_schema.CoreSchema:
         return core_schema.no_info_plain_validator_function(
             cls._validate,
-            serialization=core_schema.plain_serializer_function_ser_schema(str),
+            serialization=core_schema.plain_serializer_function_ser_schema(
+                str, when_used="json"
+            ),
         )
 
     @classmethod
