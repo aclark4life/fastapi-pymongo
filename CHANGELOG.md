@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.1.0a2] - 2026-10-08
+
+### Fixed
+
+- `PyObjectId` serializes to a string only in JSON mode. `model_dump()` now
+  yields the `ObjectId` itself, so `model_dump(by_alias=True)` produces a
+  document with a BSON `_id` that round-trips: `insert_one` and
+  `find_one`/`delete_one` agree on the id type.
+- The quickstart app returns 404 instead of 500 for an invalid id path
+  parameter, via a `PyObjectId.is_valid` guard.
+
 ## [0.1.0a1] - 2026-10-05
 
 ### Changed
