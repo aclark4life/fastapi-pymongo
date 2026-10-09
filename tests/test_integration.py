@@ -135,4 +135,5 @@ def test_handshake_driver_name_reaches_server(client):
             return {op["clientMetadata"]["driver"]["name"] for op in ops["cursor"]["firstBatch"]}
 
     names = asyncio.run(_driver_names())
-    assert any("fastapi-pymongo" in name for name in names)
+    # Report what the server saw, to diagnose handshake attribution gaps.
+    assert any("fastapi-pymongo" in name for name in names), sorted(names)
