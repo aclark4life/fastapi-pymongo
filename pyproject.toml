@@ -37,3 +37,8 @@ Issues = "https://github.com/aclark4life/fastapi-pymongo/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: tests that require a running MongoDB deployment",
+]
