@@ -39,6 +39,13 @@ ships a ``MongoObjectId`` with the same goal. Differences:
 - it serializes with ``when_used="json"``, so ``.model_dump()`` yields an
   ``ObjectId`` and ``.model_dump(mode="json")`` yields a string. The dump
   shape depends on the mode,
+- in the latest release (2.11.2), JSON-mode validation checks only the
+  string length: a 24-character non-hex value is accepted and left as a
+  plain ``str`` instead of an ``ObjectId``. The fix is merged upstream
+  (`#405 <https://github.com/pydantic/pydantic-extra-types/pull/405>`_,
+  July 2026) but unreleased,
+- its JSON Schema reports only ``minLength``/``maxLength`` — no ``pattern``
+  — so OpenAPI clients can send values the server will reject,
 - it adds a dependency for ~30 lines this package now owns and tests.
 
 ``PyObjectId`` subclasses ``bson.ObjectId`` directly: it is an ``ObjectId``,
