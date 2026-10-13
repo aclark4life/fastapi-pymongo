@@ -10,7 +10,13 @@ FastAPI integration for PyMongo:
 ## Install
 
 ```bash
-pip install -e ".[dev]"
+pip install fastapi-pymongo
+```
+
+Optional Beanie integration:
+
+```bash
+pip install "fastapi-pymongo[beanie]"
 ```
 
 ## Examples
@@ -22,8 +28,15 @@ pip install -e ".[dev]"
 
 ```bash
 pip install -e ".[dev]"
-pytest
+pytest            # unit tests (integration and perf are deselected by default)
+pytest -m perf    # PyObjectId overhead benchmarks
+ruff check src tests examples
+mypy src
 ```
+
+Integration tests need a running MongoDB; set `MONGODB_URI` (default
+`mongodb://localhost:27017`). Run the full suite with a local server, for
+example via `mongodb-runner start --topology standalone`.
 
 ## Documentation
 
