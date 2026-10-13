@@ -61,10 +61,40 @@ Why not ``beanie.PydanticObjectId``
 --------------------------------------------------
 
 `Beanie <https://github.com/BeanieODM/beanie>`_'s ``PydanticObjectId``
-solves the same problem. But it requires installing Beanie, a full
-ODM, to get one field type. If you are already using Beanie, use
-``beanie.PydanticObjectId`` (see :doc:`beanie`). If you are on raw PyMongo,
-``PyObjectId`` gives you the field without the ODM.
+solves the same problem, and is the closest relative: it also subclasses
+``bson.ObjectId``, validates from an ObjectId or hex string, serializes to
+a string only in JSON mode, and emits the same ``minLength``/``maxLength``/
+``pattern`` schema. Differences:
+
+- it requires installing Beanie, a full ODM, to get one field type,
+- its Python-mode validator accepts anything the ``ObjectId`` constructor
+  accepts, including ``bytes`` and 12-byte binary values,
+- its validation error is generic ("Id must be of type PydanticObjectId");
+  ``PyObjectId`` includes the rejected value.
+
+If you are already using Beanie, use ``beanie.PydanticObjectId``
+(see :doc:`beanie`). If you are on raw PyMongo, ``PyObjectId`` gives you
+the field without the ODM. Both produce plain ``bson.ObjectId`` values
+that compare equal, so switching between them is an import change.
+
+Why not the ``pyobjectid`` PyPI package
+--------------------------------------------------
+
+`pyobjectid <https://pypi.org/project/pyobjectid/>`_ on PyPI also exports a
+class named ``PyObjectId``. Verified against its 0.1.5 wheel on Pydantic v2:
+
+- validation failures raise a custom ``InvalidObjectIdError`` that is not a
+  ``ValueError``, so it escapes Pydantic as a raw exception. In FastAPI that
+  is a 500, not a 422,
+- it registers no serializer: ``model_dump_json()`` raises
+  ``PydanticSerializationError``, so a model using it cannot be returned from
+  a route,
+- its ``is_valid`` rejects ObjectIds whose timestamp is in the future, so
+  ids generated with clock skew fail validation,
+- its JSON schema is ``{"type": "string", "format": "objectid"}`` with no
+  length or pattern constraints,
+- no source repository or description is linked from PyPI, and the last
+  release was May 2025.
 
 Usage
 -----
