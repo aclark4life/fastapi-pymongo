@@ -17,7 +17,8 @@ For local development (tests, the quickstart app):
 Requirements
 ------------
 
-- Python 3.10+
+- Python 3.11+ (matching PyMongo's supported versions)
 - FastAPI 0.110+
-- Pydantic 2.0+
+- Pydantic 2.10+
+- Pydantic-settings 2.12+
 - PyMongo 4.9+ (for the async client)
