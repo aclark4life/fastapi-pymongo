@@ -7,8 +7,8 @@ Run:
 
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict, Field
 from fastapi import Depends, FastAPI, HTTPException
+from pydantic import BaseModel, ConfigDict, Field
 from pymongo.asynchronous.database import AsyncDatabase
 
 from fastapi_pymongo import MongoSettings, PyObjectId, mongo_lifespan

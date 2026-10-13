@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from importlib.metadata import version
-from typing import AsyncIterator
 
 from fastapi import FastAPI, Request
 from pymongo import AsyncMongoClient
@@ -34,7 +34,7 @@ def mongo_lifespan(settings: MongoSettings):
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-        client = AsyncMongoClient(settings.uri, driver=_DRIVER_METADATA)
+        client: AsyncMongoClient = AsyncMongoClient(settings.uri, driver=_DRIVER_METADATA)
         setattr(app.state, _STATE_KEY, client)
         try:
             yield

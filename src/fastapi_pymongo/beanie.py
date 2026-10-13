@@ -12,8 +12,9 @@ Requires the ``beanie`` extra: ``pip install fastapi-pymongo[beanie]``.
 
 from __future__ import annotations
 
+from collections.abc import AsyncIterator, Sequence
 from contextlib import asynccontextmanager
-from typing import TYPE_CHECKING, AsyncIterator, Sequence
+from typing import TYPE_CHECKING
 
 from beanie import init_beanie
 from fastapi import FastAPI
@@ -34,7 +35,7 @@ _BEANIE_DRIVER_METADATA = DriverInfo(
 
 def beanie_lifespan(
     settings: MongoSettings,
-    document_models: Sequence[type["Document"] | type["UnionDoc"] | type["View"] | str],
+    document_models: Sequence[type[Document | UnionDoc | View] | str],
 ):
     """Build a FastAPI ``lifespan`` that opens the client, runs ``init_beanie``, and closes on shutdown.
 
@@ -60,7 +61,7 @@ def beanie_lifespan(
         # argument at client construction, below, is verified to work. So
         # only "fastapi-pymongo[beanie]" is guaranteed to show up
         # server-side, not "beanie" as well.
-        client = AsyncMongoClient(settings.uri, driver=_BEANIE_DRIVER_METADATA)
+        client: AsyncMongoClient = AsyncMongoClient(settings.uri, driver=_BEANIE_DRIVER_METADATA)
         setattr(app.state, _STATE_KEY, client)
         try:
             await init_beanie(

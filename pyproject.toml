@@ -21,6 +21,8 @@ dev = [
     "pytest",
     "pytest-asyncio",
     "httpx",
+    "ruff",
+    "mypy",
 ]
 docs = [
     "sphinx>=7.0",
@@ -37,6 +39,14 @@ Issues = "https://github.com/aclark4life/fastapi-pymongo/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.ruff.lint]
+# B008: `Depends(...)` in argument defaults is FastAPI's documented idiom.
+ignore = ["B008"]
+
+[tool.mypy]
+# pymongo has no stubs on PyPI; the driver's own annotations cover our usage.
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = '-m "not perf"'

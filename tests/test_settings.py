@@ -1,4 +1,3 @@
-import pytest
 
 from fastapi_pymongo import MongoSettings
 
