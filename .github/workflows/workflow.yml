@@ -70,4 +70,5 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: gh release create "${{ github.ref_name }}" dist/* sbom/sbom.json --generate-notes
