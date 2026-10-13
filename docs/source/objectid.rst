@@ -48,6 +48,12 @@ ships a ``MongoObjectId`` with the same goal. Differences:
   — so OpenAPI clients can send values the server will reject,
 - it adds a dependency for ~30 lines this package now owns and tests.
 
+Note that ``pip install "fastapi[standard]"`` already includes
+``pydantic-extra-types`` — so if you used the standard extra, ``MongoObjectId``
+costs you no additional package. But it also pins ``pydantic-extra-types>=2.0``,
+which resolves to 2.11.2 today: the release with both defects above. Your
+upgrade path is then gated on their next release, not ours.
+
 ``PyObjectId`` subclasses ``bson.ObjectId`` directly: it is an ``ObjectId``,
 usable as a PyMongo key without conversion, and needs no extra dependency.
 
