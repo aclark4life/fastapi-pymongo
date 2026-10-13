@@ -1,0 +1,22 @@
+name: Dependency audit
+
+on:
+  schedule:
+    - cron: "0 7 * * 1" # every Monday 07:00 UTC
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: pip-audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Audit runtime and dev dependencies
+        uses: pypa/gh-action-pip-audit@v1.0.0
+        with:
+          inputs: .
