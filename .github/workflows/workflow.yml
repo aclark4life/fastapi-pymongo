@@ -29,7 +29,7 @@ jobs:
           python -m venv .sbom-venv
           .sbom-venv/bin/pip install --quiet dist/*.whl
           cyclonedx-py environment .sbom-venv/bin/python \
-            --pyproject pyproject.toml --mc-type library --of JSON --output sbom/sbom.json
+            --pyproject pyproject.toml --mc-type library --of JSON -o sbom/sbom.json
 
       - uses: actions/upload-artifact@v4
         with:
