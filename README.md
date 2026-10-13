@@ -21,8 +21,8 @@ pip install "fastapi-pymongo[beanie]"
 
 ## Examples
 
-- [`examples/quickstart`](examples/quickstart): minimal CRUD app, raw PyMongo.
-- [`examples/beanie`](examples/beanie): same CRUD app on Beanie. Verified against a real MongoDB instance (create/list/get/delete).
+- [`examples/quickstart`](https://github.com/aclark4life/fastapi-pymongo/tree/main/examples/quickstart): minimal CRUD app, raw PyMongo.
+- [`examples/beanie`](https://github.com/aclark4life/fastapi-pymongo/tree/main/examples/beanie): same CRUD app on Beanie. Verified against a real MongoDB instance (create/list/get/delete).
 
 ## Development
 
