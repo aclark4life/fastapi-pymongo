@@ -29,7 +29,7 @@ class Item(BaseModel):
 
 @app.post("/items", response_model=Item)
 async def create_item(item: Item, db: AsyncDatabase = Depends(db_dependency)):
-    # If PYTHON-4192 ships (see src/fastapi_pymongo/types.py), this becomes:
+    # If PYTHON-4192 ships, this becomes:
     #   await db.items.insert_one(item)
     #   return item
     # via CodecOptions(document_class=Item) on the collection.
