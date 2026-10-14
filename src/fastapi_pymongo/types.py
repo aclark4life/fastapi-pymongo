@@ -9,6 +9,7 @@ from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
 from pydantic.json_schema import JsonSchemaValue
 from pydantic_core import core_schema
 
+
 class PyObjectId(_ObjectId):
     """``bson.ObjectId`` that validates from and serializes to a plain string.
 
